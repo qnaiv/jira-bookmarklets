@@ -33,12 +33,12 @@ javascript: (function () {
         }
         const subtaskContainer = document.querySelector('[for=childIssuesPanel]').parentNode.parentNode;
         const copyTableButton = createButton('表形式', 'copy-subtask-table-button', () => {
-            const subtasks = getSubtask()
+            const subtasks = getSubtask(subtaskContainer)
             const table = createIssuesTable(subtasks);
             writeTableToClipboard(table);
         });
         const copyTextButton = createButton('テキスト形式', 'copy-subtask-text-button', () => {
-            const subtasks = getSubtask()
+            const subtasks = getSubtask(subtaskContainer)
             const issues = createIssueList(subtasks);
             navigator.clipboard.writeText(issues.join(''));
         });
@@ -90,7 +90,7 @@ javascript: (function () {
             summery: headingElm.innerHTML
         }
     }
-    function getSubtask(){
+    function getSubtask(subtaskContainer){
         const links = [...subtaskContainer.querySelectorAll('[data-test-id="issue.issue-view.views.common.issue-line-card.issue-line-card-view.key"]')];
         const summeries = [...subtaskContainer.querySelectorAll('[data-test-id="issue.issue-view.views.common.issue-line-card.issue-line-card-view.summary"]')];
         return links.map((link, index) => {
